@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\yoe.cardenas\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\yoe.cardenas\\.nuget\\packages"
+    ]
+  }
+}

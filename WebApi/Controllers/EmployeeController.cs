@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Core;
 using WebApi.Models;
+using WebApi.Models.Dto;
 using WebApi.Models.Entities;
 using WebApi.Models.Queries;
 using WebApi.Repositories;
@@ -14,122 +17,78 @@ namespace WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IGenericRepository<Employee> _employee;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IGenericRepository<Employee> employee)
+        public EmployeeController(IGenericRepository<Employee> employee, IMediator mediator, IMapper mapper)
         {
             _employee = employee;
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<GenericResponse<IEnumerable<Employee>>> Get()
+        public async Task<GenericResponse<IEnumerable<EmployeeDto>>> Get()
         {
-            GenericResponse<IEnumerable<Employee>> result = new GenericResponse<IEnumerable<Employee>>()
+            return new GenericResponse<IEnumerable<EmployeeDto>>()
             {
-                Result = await _employee.GetAllAsync()
+                Result = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(await _employee.GetAllAsync())
             };
-
-            return result;
         }
 
         [HttpGet("{id}")]
-        public async Task<GenericResponse<IEnumerable<Employee>>> Get(int id)
+        public async Task<GenericResponse<IEnumerable<EmployeeDto>>> Get(int id)
         {
-            List<Filter> listFilters = new List<Filter>
+            return new GenericResponse<IEnumerable<EmployeeDto>>()
             {
-                new Filter() { Order = 1, Column = "EmployeeId", Operator = "=", Value = id.ToString() }
+                Result = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(await _employee.GetAllByFilterAsync(GetFilterByEmployeeId(id)))
             };
-            GenericResponse<IEnumerable<Employee>> result = new GenericResponse<IEnumerable<Employee>>()
-            {
-                Result = await _employee.GetAllByFilterAsync(listFilters)
-            };
-
-            return result;
         }
 
         [HttpGet("GetAllWithPagination")]
-        public async Task<GenericResponse<Pagination<Employee>>> GetAllWithPagination()
+        public async Task<GenericResponse<Pagination<EmployeeDto>>> GetAllWithPagination()
         {
             var pagination = new Pagination<Employee>();
-            GenericResponse<Pagination<Employee>> result = new GenericResponse<Pagination<Employee>>()
+            return new GenericResponse<Pagination<EmployeeDto>>()
             {
-                Result = await _employee.GetAllPaginationByFilterAsync(pagination)
+                Result = _mapper.Map<Pagination<Employee>, Pagination<EmployeeDto>>(await _employee.GetAllPaginationByFilterAsync(pagination))
             };
-
-            return result;
         }
 
         [HttpGet("GetAllWithPaginationById/{id}")]
-        public async Task<GenericResponse<Pagination<Employee>>> GetAllWithPaginationById(int id)
+        public async Task<GenericResponse<Pagination<EmployeeDto>>> GetAllWithPaginationById(int id)
         {
-            List<Filter> listFilters = new List<Filter>
+            var pagination = new Pagination<Employee>() { Filters = GetFilterByEmployeeId(id) };
+            return new GenericResponse<Pagination<EmployeeDto>>()
             {
-                new Filter() { Order = 1, Column = "EmployeeId", Operator = "=", Value = id.ToString() }
+                Result = _mapper.Map<Pagination<Employee>, Pagination<EmployeeDto>>(await _employee.GetAllPaginationByFilterAsync(pagination))
             };
-            var pagination = new Pagination<Employee>()
-            {
-                Filters = listFilters
-            };
-            GenericResponse<Pagination<Employee>> result = new GenericResponse<Pagination<Employee>>()
-            {
-                Result = await _employee.GetAllPaginationByFilterAsync(pagination)
-            };
-
-            return result;
         }
 
         [HttpPost]
-        public async Task<GenericResponse<bool>> Post(Employee employee)
+        public async Task<GenericResponse<EmployeeDto>> Post(EmployeeCommand employee)
         {
-            bool exists = ValidateEmployee(employee);
-
-            if (!exists)
-                await _employee.InsertAsync(employee);
-
-            GenericResponse<bool> result = new GenericResponse<bool>()
-            {
-                Message = exists ? "El nombre de usuario ya existe!" : "Usuario creado con éxito!!!",
-                Result = !exists
-            };
-
-            return result;
+            return await _mediator.Send(employee);
         }
 
         [HttpPut("{id}")]
-        public async Task<GenericResponse<bool>> Put(int id, Employee employee)
+        public async Task<GenericResponse<bool>> Put(int id, EmployeeCommand employee)
         {
-            await _employee.UpdateByIdAsync(employee, id.ToString());
-            GenericResponse<bool> result = new GenericResponse<bool>()
+            EmployeeUpdateCommand emplyeeUpdate = new EmployeeUpdateCommand()
             {
-                Message = "El registro ha sido actualizado con éxito",
-                Result = true
+                EmployeeId = id,
+                Employee = employee
             };
-            return result;
+            return await _mediator.Send(emplyeeUpdate);
         }
 
         [HttpDelete("{id}")]
         public async Task<GenericResponse<bool>> Delete(int id)
         {
-            List<Filter> listFilters = new List<Filter>
-            {
-                new Filter() { Order = 1, Column = "EmployeeId", Operator = "=", Value = id.ToString() }
-            };
-            await _employee.DeleteByIdAsync(listFilters);
-            GenericResponse<bool> result = new GenericResponse<bool>()
-            {
-                Message = "El registro ha sido eliminado con éxito",
-                Result = true
-            };
-            return result;
+            EmployeeDeleteCommand emplyeeDelete = new EmployeeDeleteCommand() { EmployeeId = id };
+            return await _mediator.Send(emplyeeDelete);
         }
 
-        private bool ValidateEmployee(Employee employee)
-        {
-            List<Filter> listFilters = new List<Filter>
-            {
-                new Filter() { Column = "Username", Operator = "=", Value = employee.Username}
-            };
-
-            return _employee.GetAllByFilterAsync(listFilters).Result.Any();
-        }
+        private List<Filter> GetFilterByEmployeeId(int employeeId) => new List<Filter> { new Filter() { Column = "EmployeeId", Operator = "=", Value = employeeId.ToString() } };
     }
 }

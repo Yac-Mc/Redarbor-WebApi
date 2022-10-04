@@ -1,16 +1,15 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebApi.Models.Entities
+namespace WebApi.Models.Dto
 {
-    [Table("Employee", Schema = "dbo")]
-    public class Employee
+    public class EmployeeDto
     {
-        [Key]
         public int EmployeeId { get; set; }
         public int CompanyId { get; set; }
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public DateTime? CreatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public string Email { get; set; }
         public string Fax { get; set; }

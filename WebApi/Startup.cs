@@ -1,3 +1,5 @@
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using WebApi.Core;
 using WebApi.Repositories;
 using WebApi.Repositories.Queries;
+using static WebApi.Core.Register;
 
 namespace WebApi
 {
@@ -28,8 +32,9 @@ namespace WebApi
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             #endregion
 
-
-            services.AddControllers();
+            services.AddMediatR(typeof(EmployeeCommand).Assembly);
+            services.AddAutoMapper(typeof(EmployeeRegisterHandler));
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Register>());
             AddSwagger(services);
         }
 

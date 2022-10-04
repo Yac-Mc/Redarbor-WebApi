@@ -4,11 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApi
 {
@@ -25,6 +22,27 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            AddSwagger(services);
+        }
+
+        private void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                string groupName = "v1";
+                options.SwaggerDoc(groupName, new OpenApiInfo
+                {
+                    Title = "Redarbor - WebApi",
+                    Version = groupName,
+                    Description = "Web Api that accesses a database where it stores employee content.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "README WEB API - Redarbor",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/Yac-Mc/Redarbor-WebApi"),
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +52,13 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Redarbor - WebApi V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

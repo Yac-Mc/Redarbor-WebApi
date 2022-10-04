@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "kNWk01BM1LC15hvj1++dhl76FHME7GsnGI9R2/GibfpVUhun6IDP7HOVHmezFkvN83nz92fkaZAA+kf2CPRnyA==",
+  "dgSpecHash": "U7aJ5bMGWDOh1tH7gjSV11IhWuFc3vrjEBVAV5cjFVWG1/22jARpgkVxBBsv96LTz/VAOg+iyrT6T7Ws2mjGbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\yoe.cardenas\\Desktop\\Yoe\\Universidad\\Redarbor-WebApi\\WebApi\\WebApi.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\yoe.cardenas\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
   "logs": []
 }

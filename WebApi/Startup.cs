@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using WebApi.Repositories;
+using WebApi.Repositories.Queries;
 
 namespace WebApi
 {
@@ -21,6 +23,12 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Repositories
+            services.AddScoped(typeof(ICommandText<>), typeof(CommandText<>));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            #endregion
+
+
             services.AddControllers();
             AddSwagger(services);
         }
@@ -50,15 +58,11 @@ namespace WebApi
         {
             if (env.IsDevelopment())
             {
+                app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Redarbor - WebApi V1"));
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Redarbor - WebApi V1");
-                c.RoutePrefix = string.Empty;
-            });
 
             app.UseRouting();
 

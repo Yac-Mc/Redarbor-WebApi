@@ -24,3 +24,12 @@ C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\obj\Debug\n
 C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.dll
 C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.pdb
 C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.genruntimeconfig.cache
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.AssemblyReference.cache
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\yoe.cardenas\Desktop\Yoe\Universidad\Redarbor-WebApi\WebApi\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

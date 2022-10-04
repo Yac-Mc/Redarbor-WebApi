@@ -7,15 +7,16 @@
 - Obtener empleado por id sin paginación. 
 - Agregar un nuevo empleado. 
 - Actualizar un empleado existenete.
-- Eliminar un empleado.
+- Eliminar un empleado por id.
 
 ### Características tecnicas APP
-- BackEnd: FrameWork .NetCore
+- BackEnd: FrameWork .Net Core 3.1
   - API Rest
-  - Patron de diseño: GenericRepository
+  - Patron de diseño: GenericRepository - CQRS
   - Arquitectura: Por capas MVC
-  - ORM: Micro Orm Dapper
+  - ORM: Micro Orm Dapper(v2.0.123)
   - Db SQL Server
+  - Librerías: AutoMapper(v12.0.0), FluentValidation(v11.2.2), Swagger(v6.4.0), SqlCLient(v4.8.3), Newtonsoft(v13.0.1), MediatR(v11.0.0)
   
 **Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.**
 **Pre-requisitos**
@@ -46,6 +47,6 @@
         6. Haga click en el botón Play(IIS Express) o oprima la tecla F5
         7. Espere que se compile la solución y se abra la ventana de Swagger
   
-**Autores**
+**Autor**
 
-* Yoe Cardenas - Desarrollador full stack
+* Yoe Andres Cardenas - Desarrollador full stack
